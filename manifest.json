@@ -13,9 +13,6 @@
         "tabs",
         "storage"
     ],
-    "background": {
-        "persistent": false
-    },
     "options_ui": {
         "page": "src/assets/options.html",
         "open_in_tab": false
