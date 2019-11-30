@@ -1,0 +1,33 @@
+{
+    "name": "RelatedVideosBlocker",
+    "short_name": "RVB",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "description": "This Chrome Extension delete related videos",
+    "icons": {
+        "16": "src/assets/img/icon.png",
+        "48": "src/assets/img/icon.png",
+        "128": "src/assets/img/icon.png"
+    },
+    "permissions": [
+        "tabs",
+        "storage"
+    ],
+    "background": {
+        "persistent": false
+    },
+    "options_ui": {
+        "page": "src/assets/options.html",
+        "open_in_tab": false
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/watch?v=*"
+            ],
+            "js": [
+                "src/content_scripts/youtube.js"
+            ]
+        }
+    ]
+}
