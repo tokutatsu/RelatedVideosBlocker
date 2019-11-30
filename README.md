@@ -1,1 +1,1 @@
-# relatedVideosBlocker
+# RelatedVideosBlocker
