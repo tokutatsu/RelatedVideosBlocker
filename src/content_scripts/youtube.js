@@ -30,7 +30,7 @@ const removeAdvertisement = () => {
 };
 
 
-chrome.runtime.sendMessage({ contents: "youtube" }, function (isAvailable) {
+chrome.runtime.sendMessage({ contents: "youtube" }, (isAvailable) => {
     if (isAvailable) {
         removeRelatedVideos();
         window.addEventListener('load', () => {
