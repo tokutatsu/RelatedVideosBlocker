@@ -29,8 +29,8 @@ const removeAdvertisement = () => {
     }
 };
 
-
-chrome.runtime.sendMessage({ contents: "youtube" }, (isAvailable) => {
+// コンテンツ読み込み時に拡張機能が有効か確認
+chrome.runtime.sendMessage({ contents: 'youtube' }, (isAvailable) => {
     if (isAvailable) {
         removeRelatedVideos();
         window.addEventListener('load', () => {

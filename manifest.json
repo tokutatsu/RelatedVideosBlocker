@@ -14,14 +14,15 @@
     "storage"
   ],
   "background": {
-    "persistent": false,
     "scripts": [
       "src/background.js"
-    ]
+    ],
+    "persistent": false
   },
   "browser_action": {
     "default_icon": "src/assets/img/icon.png",
-    "default_title": "RelatedVideosBlocker"
+    "default_title": "RelatedVideosBlocker",
+    "default_popup": "src/assets/options.html"
   },
   "options_ui": {
     "page": "src/assets/options.html",
@@ -33,8 +34,7 @@
         "https://www.youtube.com/watch?v=*"
       ],
       "js": [
-        "src/content_scripts/youtube.js",
-        "src/assets/js/options.js"
+        "src/content_scripts/youtube.js"
       ]
     }
   ]

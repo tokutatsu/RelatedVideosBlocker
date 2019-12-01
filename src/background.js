@@ -1,20 +1,9 @@
-let youtube = false;
-
-// ボタンが押されたら、状態を入れ替えてリロードする
-chrome.browserAction.onClicked.addListener((tab) => {
-    youtube = !youtube;
-
-    // 状態をバッジとして表示する
-    if (youtube) {
-        chrome.browserAction.setBadgeText({ text: "ON" });
-    } else {
-        chrome.browserAction.setBadgeText({ text: "" });
-    }
-});
-
+// どのコンテンツに飛んだかを確認して有効か無効化を判定する
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (youtube && request.contents == 'youtube') {
-        sendResponse(true);
+    if (request.contents == 'youtube') {
+        chrome.storage.sync.get('youtube', (value) => {
+            sendResponse(value.youtube);
+        });
     }
-    sendResponse(false);
+    return true;
 });
