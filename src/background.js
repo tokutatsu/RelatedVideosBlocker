@@ -5,5 +5,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             sendResponse(value.youtube);
         });
     }
+    // 同期的に待つ場合は明示的にtrueを返す
     return true;
 });
