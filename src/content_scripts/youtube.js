@@ -18,25 +18,46 @@ function removeRelatedVideos() {
     // 次の動画と表示されるテキスト
     const upnext = document.getElementById('upnext');
     // 動画終了時に表示される関連動画
-    const videos = document.querySelector('.videowall-endscreen');
+    let videos = document.querySelector('.videowall-endscreen');
+    // 広告の時間待機する秒数
+    const LIMIT = 180;
+    // 1秒でカウンタが1増える
+    let limit_counter = 0;
 
     secondary.style.visibility = 'hidden';
     head.style.visibility = 'visible';
     upnext.style.visibility = 'hidden';
-    videos.remove();
-};
+
+    const interval = setInterval(() => {
+        videos = document.querySelector('.videowall-endscreen');
+        console.log(videos);
+        if (videos) {
+            videos.remove();
+            clearInterval(interval);
+        }
+        if (limit_counter >= LIMIT) {
+            clearInterval(interval);
+        }
+        limit_counter++;
+    }, 1000);
+}
 
 // 広告の削除
 function removeAdvertisement() {
     // 関連動画がある場所の広告
     const playerAds = document.querySelectorAll('#player-ads');
+    // 動画内の広告を消す機能は広告動画のスキップボタンも消してしまうので一旦導入をやめる
+    /*
     // 動画内の広告
     const videoAds = document.querySelectorAll('.video-ads');
+    */
 
     for (const playerAd of playerAds) {
         playerAd.remove();
     }
+    /*
     for (const videoAd of videoAds) {
         videoAd.remove();
     }
-};
+    */
+}
