@@ -1,4 +1,16 @@
-const removeRelatedVideos = () => {
+// コンテンツ読み込み時に拡張機能が有効か確認して有効なら処理を実行
+chrome.runtime.sendMessage({ contents: 'youtube' }, (isAvailable) => {
+    if (isAvailable) {
+        setTimeout(() => {
+            removeRelatedVideos();
+            removeAdvertisement();
+        }, 3000);
+
+    }
+});
+
+// 関連動画の削除
+function removeRelatedVideos() {
     // 関連動画などが表示されているブロック全体
     const secondary = document.getElementById('secondary');
     // 自動再生のトグル操作を行う要素
@@ -15,7 +27,7 @@ const removeRelatedVideos = () => {
 };
 
 // 広告の削除
-const removeAdvertisement = () => {
+function removeAdvertisement() {
     // 関連動画がある場所の広告
     const playerAds = document.querySelectorAll('#player-ads');
     // 動画内の広告
@@ -28,13 +40,3 @@ const removeAdvertisement = () => {
         videoAd.remove();
     }
 };
-
-// コンテンツ読み込み時に拡張機能が有効か確認
-chrome.runtime.sendMessage({ contents: 'youtube' }, (isAvailable) => {
-    if (isAvailable) {
-        removeRelatedVideos();
-        window.addEventListener('load', () => {
-            removeAdvertisement();
-        });
-    }
-});
