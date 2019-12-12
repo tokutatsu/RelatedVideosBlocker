@@ -4,7 +4,7 @@ chrome.runtime.sendMessage({ contents: 'youtube' }, (isAvailable) => {
         setTimeout(() => {
             removeRelatedVideos();
             removeAdvertisement();
-        }, 3000);
+        }, 1000);
 
     }
 });
@@ -30,8 +30,7 @@ function removeRelatedVideos() {
 
     const interval = setInterval(() => {
         videos = document.querySelector('.videowall-endscreen');
-        console.log(videos);
-        if (videos) {
+        if (videos != null) {
             videos.remove();
             clearInterval(interval);
         }
