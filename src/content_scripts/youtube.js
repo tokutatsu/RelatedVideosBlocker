@@ -2,15 +2,51 @@
 chrome.runtime.sendMessage({ contents: 'youtube' }, (isAvailable) => {
     if (isAvailable) {
         setTimeout(() => {
-            removeRelatedVideos();
+            hideRelatedVideos();
             removeAdvertisement();
         }, 1000);
 
+    } else {
+        setTimeout(() => {
+            showRelatedVideos();
+        }, 1000);
     }
 });
 
-// 関連動画の削除
-function removeRelatedVideos() {
+// 関連動画を表示する
+function showRelatedVideos() {
+    // 関連動画などが表示されているブロック全体
+    const secondary = document.getElementById('secondary');
+    // 自動再生のトグル操作を行う要素
+    const head = document.getElementById('head');
+    // 次の動画と表示されるテキスト
+    const upnext = document.getElementById('upnext');
+    // 動画終了時に表示される関連動画
+    let videos = document.querySelector('.videowall-endscreen');
+    // 広告の時間待機する秒数
+    const LIMIT = 180;
+    // 1秒でカウンタが1増える
+    let limit_counter = 0;
+
+    secondary.style.visibility = 'visible';
+    head.style.visibility = 'visible';
+    upnext.style.visibility = 'visible';
+
+    const interval = setInterval(() => {
+        videos = document.querySelector('.videowall-endscreen');
+        if (videos != null) {
+            videos.style.visibility = 'visible';
+            clearInterval(interval);
+        }
+        if (limit_counter >= LIMIT) {
+            clearInterval(interval);
+        }
+        limit_counter++;
+    }, 1000);
+}
+
+// 関連動画を非表示にする
+function hideRelatedVideos() {
     // 関連動画などが表示されているブロック全体
     const secondary = document.getElementById('secondary');
     // 自動再生のトグル操作を行う要素
@@ -31,7 +67,7 @@ function removeRelatedVideos() {
     const interval = setInterval(() => {
         videos = document.querySelector('.videowall-endscreen');
         if (videos != null) {
-            videos.remove();
+            videos.style.visibility = 'hidden';
             clearInterval(interval);
         }
         if (limit_counter >= LIMIT) {
